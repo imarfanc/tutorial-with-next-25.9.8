@@ -1,0 +1,92 @@
+{
+    // ╭─────────────────────────── UI Layout ────────────────────────────╮
+    //"window.zoomLevel": 1,    // Scale entire UI (including explorer font)
+    //"workbench.editor.showTabs": "none",
+    "window.commandCenter": true,
+    "workbench.sideBar.location": "right",
+    "explorer.showHiddenFiles": true,
+    "explorer.confirmDelete": false,
+    "explorer.confirmPasteNative": false,
+    "explorer.confirmDragAndDrop": false,
+
+    // ╭────────── Icons ──────────╮
+    "workbench.iconTheme": "material-icon-theme",
+    "material-icon-theme.activeIconPack": "none",
+    "material-icon-theme.folders.associations": {
+        "html_Apps": "App",
+        "chat": "",
+    },
+
+    // ╭──────────────────────── Editor Configuration ────────────────────╮
+    "editor.fontSize": 11,
+    "editor.fontFamily": "Hack Nerd Font Mono",
+    "editor.accessibilitySupport": "off",
+    "editor.formatOnSave": true,
+    "diffEditor.ignoreTrimWhitespace": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
+
+    // ╭──────────────────────── Terminal Configuration ────────────────────╮
+    "terminal.integrated.lineHeight": 1.5,
+    "terminal.integrated.fontSize": 16,
+    "terminal.integrated.cursorStyle": "line",
+
+    // ╭──────────────────────── Language & Tools ────────────────────╮
+    "python.defaultInterpreterPath": "/Users/arfan/miniconda3/bin/python",
+    "go.toolsManagement.autoUpdate": true,
+    "svelte.enable-ts-plugin": true,
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.cpp.disabledLanguages": ["plaintext"],
+
+    // ╭──────────────────────── Git Configuration ────────────────────╮
+    "git.enableSmartCommit": true,
+
+    // ╭────────── Markdown Preview ──────────╮
+    "markdown-preview-enhanced.previewTheme": "one-dark.css",
+
+    // ╭──────────────────────── Markdown Configuration ────────────────────╮
+    "[markdown]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false,
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        }
+    },
+    "markdownlint.config": {
+        "MD033": {
+            "allowed_elements": [
+                "a", "img", "strong", "table", "tr", "th", "td", "style", "em", "p", "ul", "ol", "li", "blockquote", "h1", "h2", "h3", "h4", "h5", "h6"
+            ]
+        }
+    },
+    "markdownlint.focusMode": false,
+
+    // ╭──────────────────────── Miscellaneous ────────────────────╮
+    "liveServer.settings.donotShowInfoMsg": true,
+    "prettier.requireConfig": true,
+    "update.releaseTrack": "prerelease",
+    "roo-cline.allowedCommands": [
+        "npm test",
+        "npm install",
+        "tsc",
+        "git log",
+        "git diff",
+        "git show"
+    ],
+
+    // ╭──────────────────────── Remote Development ────────────────────╮
+    "remote.SSH.remotePlatform": {
+        "sandbox.fzrjrx.csb": "linux"
+    },
+    "security.promptForRemoteFileProtocolHandling": false,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "workbench.colorCustomizations": {},
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // "workbench.colorTheme": "Cursor Dark High Contrast",
+}
+// ╰───────────────────────────────────────────────────────────────────╯
