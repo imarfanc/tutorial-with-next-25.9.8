@@ -1,48 +1,57 @@
 <template>
-  <div class="mx-auto p-4 container">
-    <h1 class="mb-6 font-bold text-3xl">Todo App with daisyUI</h1>
+  <div class="mx-auto p-6 max-w-4xl container">
+    <h1 class="mb-8 font-bold text-primary text-4xl text-center">
+      Todo App with DaisyUI
+    </h1>
 
     <!-- Add Todo Form -->
-    <div class="bg-base-100 shadow-xl mb-6 card">
-      <div class="card-body">
+    <div class="bg-base-100 shadow-2xl mb-8 rounded-xl card">
+      <div class="p-6 card-body">
         <form @submit.prevent="addTodo" class="form-control">
-          <div class="input-group">
+          <div class="input-group input-group-lg">
             <input
               v-model="newTodoText"
               type="text"
               placeholder="Enter new todo..."
-              class="input-bordered w-full input"
+              class="input-bordered w-full input-lg"
               required />
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary btn-lg">
+              <span>Add</span>
+            </button>
           </div>
         </form>
       </div>
     </div>
 
     <!-- Todo List -->
-    <div class="gap-4 grid">
+    <div class="gap-4 grid md:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="todo in todos"
         :key="todo.id"
-        class="bg-base-100 shadow-xl card">
-        <div class="card-body">
+        class="bg-base-100 hover:shadow-2xl rounded-xl transition-shadow duration-300 card">
+        <div class="p-4 card-body">
           <div class="flex justify-between items-center">
-            <input
-              v-if="editingId === todo.id"
-              v-model="editingText"
-              @keyup.enter="updateTodo(todo.id)"
-              @blur="updateTodo(todo.id)"
-              type="text"
-              class="flex-1 mr-2 input-bordered input" />
-            <span v-else class="flex-1 text-lg">{{ todo.text }}</span>
-            <div class="space-x-2">
+            <div class="flex-1">
+              <input
+                v-if="editingId === todo.id"
+                v-model="editingText"
+                @keyup.enter="updateTodo(todo.id)"
+                @blur="updateTodo(todo.id)"
+                type="text"
+                class="input-bordered w-full input"
+                autofocus />
+              <span v-else class="font-medium text-xl break-words">{{
+                todo.text
+              }}</span>
+            </div>
+            <div class="flex-shrink-0 space-x-2">
               <button
                 @click="toggleEdit(todo.id, todo.text)"
                 class="btn-outline btn btn-sm">
                 {{ editingId === todo.id ? "Cancel" : "Edit" }}
               </button>
               <button @click="deleteTodo(todo.id)" class="btn btn-sm btn-error">
-                Delete
+                <span>Delete</span>
               </button>
             </div>
           </div>
@@ -50,8 +59,8 @@
       </div>
     </div>
 
-    <p v-if="todos.length === 0" class="mt-4 text-center">
-      No todos yet. Add one above!
+    <p v-if="todos.length === 0" class="mt-8 text-base-content/60 text-center">
+      No todos yet. Add one above to get started!
     </p>
   </div>
 </template>
