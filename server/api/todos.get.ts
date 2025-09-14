@@ -1,14 +1,11 @@
 export default defineEventHandler(async (event) => {
   // @ts-ignore
   const kv = await Deno.openKv();
-  const todos = [];
-  for await (const entry of kv.list({ prefix: ["todos"] })) {
-    if (entry.value) {
-      todos.push({
-        id: entry.key[1],
-        text: entry.value,
-      });
-    }
+  const todoFile = await kv.get(["files", "todos-25914.json"]);
+
+  if (!todoFile.value) {
+    return [];
   }
-  return todos;
+
+  return todoFile.value.todos || [];
 });

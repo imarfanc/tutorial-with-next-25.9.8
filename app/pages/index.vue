@@ -22,6 +22,12 @@
               📓 Notes App
             </NuxtLink>
             <NuxtLink
+              to="/env"
+              class="btn btn-info btn-lg w-full hover:scale-[1.02] transition-transform"
+            >
+              🔧 Env Reader
+            </NuxtLink>
+            <NuxtLink
               to="/kv-data"
               class="btn btn-secondary btn-lg w-full hover:scale-[1.02] transition-transform"
             >
@@ -32,7 +38,7 @@
       </div>
 
       <!-- Info Cards -->
-      <div class="grid md:grid-cols-3 gap-4">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-primary/10 border border-primary/20 rounded-lg p-4 text-center">
           <div class="text-primary text-2xl mb-2">📝</div>
           <h3 class="font-semibold text-primary">Todos</h3>
@@ -42,6 +48,11 @@
           <div class="text-accent text-2xl mb-2">📓</div>
           <h3 class="font-semibold text-accent">Notes</h3>
           <p class="text-sm text-base-content/70">Store your thoughts</p>
+        </div>
+        <div class="bg-info/10 border border-info/20 rounded-lg p-4 text-center">
+          <div class="text-info text-2xl mb-2">🔧</div>
+          <h3 class="font-semibold text-info">Environment</h3>
+          <p class="text-sm text-base-content/70">Check env variables</p>
         </div>
         <div class="bg-secondary/10 border border-secondary/20 rounded-lg p-4 text-center">
           <div class="text-secondary text-2xl mb-2">🗄️</div>

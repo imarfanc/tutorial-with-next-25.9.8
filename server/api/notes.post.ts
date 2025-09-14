@@ -4,15 +4,27 @@ export default defineEventHandler(async (event) => {
 
   // @ts-ignore
   const kv = await Deno.openKv();
-  const id = crypto.randomUUID();
-  const note = {
-    id,
+
+  // Get existing notes file
+  const notesFile = await kv.get(["files", "notes-25914.json"]);
+  let notes = notesFile.value?.notes || [];
+
+  // Add new note
+  const newNote = {
+    id: crypto.randomUUID(),
     title,
     content,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
 
-  await kv.set(["notes", id], note);
-  return note;
+  notes.push(newNote);
+
+  // Save back to file
+  await kv.set(["files", "notes-25914.json"], {
+    notes,
+    lastUpdated: new Date().toISOString(),
+  });
+
+  return newNote;
 });

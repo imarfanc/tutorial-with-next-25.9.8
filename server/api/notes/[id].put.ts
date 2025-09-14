@@ -5,22 +5,32 @@ export default defineEventHandler(async (event) => {
 
   // @ts-ignore
   const kv = await Deno.openKv();
-  const existingNote = await kv.get(["notes", id]);
 
-  if (!existingNote.value) {
+  // Get existing notes file
+  const notesFile = await kv.get(["files", "notes-25914.json"]);
+  let notes = notesFile.value?.notes || [];
+
+  // Find and update the note
+  const noteIndex = notes.findIndex(note => note.id === id);
+  if (noteIndex === -1) {
     throw createError({
       statusCode: 404,
       statusMessage: "Note not found",
     });
   }
 
-  const updatedNote = {
-    ...existingNote.value,
+  notes[noteIndex] = {
+    ...notes[noteIndex],
     title,
     content,
     updatedAt: new Date().toISOString(),
   };
 
-  await kv.set(["notes", id], updatedNote);
-  return updatedNote;
+  // Save back to file
+  await kv.set(["files", "notes-25914.json"], {
+    notes,
+    lastUpdated: new Date().toISOString(),
+  });
+
+  return notes[noteIndex];
 });
