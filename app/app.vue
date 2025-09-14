@@ -1,10 +1,9 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <TodoApp />
+    <NuxtPage />
   </div>
 </template>
 
 <script setup>
-import TodoApp from "~/components/TodoApp.vue";
 </script>
