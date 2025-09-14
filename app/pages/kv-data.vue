@@ -1,28 +1,30 @@
 <template>
-  <div class="mx-auto p-6 max-w-4xl">
-    <h1 class="mb-8 font-bold text-primary text-4xl text-center">
+  <div id="kv-data-container" class="mx-auto p-6 max-w-4xl">
+    <h1 id="kv-data-title" class="mb-8 font-bold text-primary text-4xl text-center">
       Raw Deno KV Data
     </h1>
 
-    <div v-if="loading" class="text-center">
+    <div v-if="loading" id="loading-section" class="text-center">
       <span class="loading loading-spinner loading-lg"></span>
       <p class="mt-2">Loading raw KV data...</p>
     </div>
 
-    <div v-else-if="error" class="alert alert-error">
+    <div v-else-if="error" id="error-section" class="alert alert-error">
       <span>{{ error }}</span>
     </div>
 
     <div
       v-else-if="rawData.length === 0"
+      id="empty-state"
       class="text-base-content/60 text-center">
       <p class="mt-8">No todos data in KV yet.</p>
     </div>
 
-    <div v-else class="space-y-4">
+    <div v-else id="kv-data-list" class="space-y-4">
       <div
         v-for="(entry, index) in rawData"
         :key="index"
+        :id="`kv-entry-${index}`"
         class="bg-base-100 shadow-xl rounded-xl card">
         <div class="p-4 card-body">
           <h2 class="mb-2 font-semibold text-xl">Entry {{ index + 1 }}</h2>

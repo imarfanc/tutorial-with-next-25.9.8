@@ -1,21 +1,22 @@
 <template>
-  <div class="mx-auto p-6 max-w-4xl container">
-    <h1 class="mb-8 font-bold text-primary text-4xl text-center">
+  <div id="todo-app-container" class="mx-auto p-6 max-w-4xl container">
+    <h1 id="todo-app-title" class="mb-8 font-bold text-primary text-4xl text-center">
       Todo App with DaisyUI
     </h1>
 
     <!-- Add Todo Form -->
-    <div class="bg-base-100 shadow-2xl mb-8 rounded-xl card">
+    <div id="add-todo-form" class="bg-base-100 shadow-2xl mb-8 rounded-xl card">
       <div class="p-6 card-body">
         <form @submit.prevent="addTodo" class="form-control">
           <div class="input-group input-group-lg">
             <input
+              id="new-todo-input"
               v-model="newTodoText"
               type="text"
               placeholder="Enter new todo..."
               class="input-bordered w-full input-lg"
               required />
-            <button type="submit" class="btn btn-primary btn-lg">
+            <button id="add-todo-button" type="submit" class="btn btn-primary btn-lg">
               <span>Add</span>
             </button>
           </div>
@@ -24,10 +25,11 @@
     </div>
 
     <!-- Todo List -->
-    <div class="gap-4 grid md:grid-cols-2 lg:grid-cols-3">
+    <div id="todo-list" class="gap-4 grid md:grid-cols-2 lg:grid-cols-3">
       <div
         v-for="todo in todos"
         :key="todo.id"
+        :id="`todo-item-${todo.id}`"
         class="bg-base-100 hover:shadow-2xl rounded-xl transition-shadow duration-300 card">
         <div class="p-4 card-body">
           <div class="flex justify-between items-center">
@@ -59,7 +61,7 @@
       </div>
     </div>
 
-    <p v-if="todos.length === 0" class="mt-8 text-base-content/60 text-center">
+    <p v-if="todos.length === 0" id="empty-todos-message" class="mt-8 text-base-content/60 text-center">
       No todos yet. Add one above to get started!
     </p>
   </div>

@@ -8,5 +8,5 @@ export default defineEventHandler(async (event) => {
       value: entry.value,
     });
   }
-  return rawData;
+  return { data: rawData };
 });
