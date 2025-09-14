@@ -5,8 +5,9 @@
     </h1>
 
     <!-- Add Todo Form -->
-    <div id="add-todo-form" class="bg-base-100 shadow-2xl mb-8 rounded-xl card">
+    <div id="add-todo-form" class="bg-base-100 border border-base-300 shadow-lg mb-8 rounded-xl card">
       <div class="p-6 card-body">
+        <h2 class="card-title text-accent mb-4">Add New Todo</h2>
         <form @submit.prevent="addTodo" class="form-control">
           <div class="input-group input-group-lg">
             <input
@@ -14,10 +15,10 @@
               v-model="newTodoText"
               type="text"
               placeholder="Enter new todo..."
-              class="input-bordered w-full input-lg"
+              class="input input-bordered input-primary w-full input-lg"
               required />
             <button id="add-todo-button" type="submit" class="btn btn-primary btn-lg">
-              <span>Add</span>
+              <span>➕ Add</span>
             </button>
           </div>
         </form>
@@ -30,7 +31,7 @@
         v-for="todo in todos"
         :key="todo.id"
         :id="`todo-item-${todo.id}`"
-        class="bg-base-100 hover:shadow-2xl rounded-xl transition-shadow duration-300 card">
+        class="bg-base-100 border border-base-300 hover:border-secondary hover:shadow-xl rounded-xl transition-all duration-300 card">
         <div class="p-4 card-body">
           <div class="flex justify-between items-center">
             <div class="flex-1">
@@ -40,20 +41,20 @@
                 @keyup.enter="updateTodo(todo.id)"
                 @blur="updateTodo(todo.id)"
                 type="text"
-                class="input-bordered w-full input"
+                class="input input-bordered input-secondary w-full"
                 autofocus />
-              <span v-else class="font-medium text-xl break-words">{{
+              <span v-else class="font-medium text-xl break-words text-secondary">{{
                 todo.text
               }}</span>
             </div>
             <div class="flex-shrink-0 space-x-2">
               <button
                 @click="toggleEdit(todo.id, todo.text)"
-                class="btn-outline btn btn-sm">
-                {{ editingId === todo.id ? "Cancel" : "Edit" }}
+                class="btn btn-outline btn-sm btn-info">
+                {{ editingId === todo.id ? "❌ Cancel" : "✏️ Edit" }}
               </button>
               <button @click="deleteTodo(todo.id)" class="btn btn-sm btn-error">
-                <span>Delete</span>
+                <span>🗑️ Delete</span>
               </button>
             </div>
           </div>
@@ -61,9 +62,13 @@
       </div>
     </div>
 
-    <p v-if="todos.length === 0" id="empty-todos-message" class="mt-8 text-base-content/60 text-center">
-      No todos yet. Add one above to get started!
-    </p>
+    <div v-if="todos.length === 0" id="empty-todos-message" class="text-center mt-12">
+      <div class="bg-base-100 border border-base-300 rounded-xl p-8 max-w-md mx-auto">
+        <div class="text-4xl mb-4">📝</div>
+        <p class="text-base-content/60 text-lg">No todos yet</p>
+        <p class="text-base-content/40 text-sm mt-2">Add one above to get started!</p>
+      </div>
+    </div>
   </div>
 </template>
 
