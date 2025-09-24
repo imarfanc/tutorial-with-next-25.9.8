@@ -106,6 +106,55 @@ The application supports multiple DaisyUI themes including:
 - Use the existing components as reference for styling and structure
 - Update the navigation in `app/app.vue` when adding new pages
 
+## Git commit message guidelines
+
+This project follows conventional commit standards for clear, consistent commit history:
+
+### Commit Message Format
+```
+<type>(<scope>): <description>
+
+<body>
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+### Commit Types
+- **feat**: New feature or functionality
+- **fix**: Bug fixes and corrections
+- **docs**: Documentation changes only
+- **style**: Code formatting, styling, or UI/UX improvements
+- **refactor**: Code restructuring without behavior changes
+- **perf**: Performance improvements
+- **test**: Adding or modifying tests
+- **chore**: Maintenance tasks, dependencies, build processes
+
+### Scope Examples
+- **ui**: User interface components and styling
+- **api**: Server-side API routes and logic
+- **env**: Environment configuration
+- **notes**: Notes app functionality
+- **todo**: Todo app functionality
+- **kv**: Deno KV database operations
+
+### Example Commit Messages
+```bash
+feat(todo): add edit-in-place functionality with dropdown menus
+fix(api): resolve database connection timeout issues
+style(ui): upgrade to DaisyUI v5 with theme switching
+docs: add comprehensive styling guidelines to AGENTS.md
+refactor(components): consolidate shared UI patterns
+```
+
+### Guidelines
+1. **Keep the first line under 70 characters**
+2. **Use imperative mood**: "add feature" not "added feature"
+3. **Include scope when relevant**: helps identify which part of the app changed
+4. **Add detailed body for complex changes**: explain the "why" not just the "what"
+5. **Reference issues/PRs when applicable**: "closes #123" or "relates to #456"
+
 ## File structure guidelines
 
 - **Pages**: `app/pages/` with .vue extension (auto-routed by Nuxt)
