@@ -1,6 +1,6 @@
 {
   "name": "nuxt-app",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "type": "module",
   "private": true,
   "scripts": {
@@ -8,7 +8,13 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxi typecheck",
+    "lint": "echo 'No linter configured yet'",
+    "test": "echo 'No tests configured yet'",
+    "deploy:build": "npm run build",
+    "deploy:preview": "npm run build && npm run preview",
+    "deploy": "npm run deploy:build && echo 'Build completed. Ready for deployment.'"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",

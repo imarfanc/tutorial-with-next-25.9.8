@@ -1,7 +1,13 @@
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, "id");
   const body = await readBody(event);
   const { title, content } = body;
+
+  if (!title || !content) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Title and content are required",
+    });
+  }
 
   // @ts-ignore
   const kv = await Deno.openKv();
@@ -10,21 +16,16 @@ export default defineEventHandler(async (event) => {
   const notesFile = await kv.get(["files", "notes-25914.json"]);
   let notes = notesFile.value?.notes || [];
 
-  // Find and update the note
-  const noteIndex = notes.findIndex(note => note.id === id);
-  if (noteIndex === -1) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: "Note not found",
-    });
-  }
-
-  notes[noteIndex] = {
-    ...notes[noteIndex],
+  // Create new note
+  const newNote = {
+    id: crypto.randomUUID(),
     title,
     content,
+    createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
+
+  notes.push(newNote);
 
   // Save back to file
   await kv.set(["files", "notes-25914.json"], {
@@ -32,5 +33,5 @@ export default defineEventHandler(async (event) => {
     lastUpdated: new Date().toISOString(),
   });
 
-  return notes[noteIndex];
+  return newNote;
 });
