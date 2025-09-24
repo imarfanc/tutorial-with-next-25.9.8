@@ -61,7 +61,17 @@
         <div class="card-body">
           <div class="flex justify-between items-start mb-4">
             <h2 class="card-title text-primary">{{ getEntryType(entry.key) }}</h2>
-            <div class="badge badge-outline">{{ entry.key.join(" → ") }}</div>
+            <div class="flex items-center gap-2">
+              <div class="badge badge-outline">{{ entry.key.join(" → ") }}</div>
+              <button
+                class="btn btn-error btn-xs"
+                @click="deleteEntry(entry.key, index)"
+                :disabled="deleting[index]"
+              >
+                <span v-if="deleting[index]" class="loading loading-spinner loading-xs"></span>
+                <span v-else>🗑️</span>
+              </button>
+            </div>
           </div>
 
           <div role="tablist" class="tabs tabs-boxed mb-4">
@@ -125,6 +135,7 @@ const rawData = ref([]);
 const loading = ref(true);
 const error = ref(null);
 const selectedTab = ref(null);
+const deleting = ref({});
 
 const fetchRawData = async () => {
   try {
@@ -159,6 +170,27 @@ const getStats = () => {
 
 const formatDate = (dateString) => {
   return new Date(dateString).toLocaleString();
+};
+
+const deleteEntry = async (key, index) => {
+  if (!confirm(`Are you sure you want to delete this entry?\nKey: ${key.join(" → ")}`)) {
+    return;
+  }
+
+  deleting.value[index] = true;
+
+  try {
+    await $fetch("/api/kv-data", {
+      method: "DELETE",
+      body: { key },
+    });
+
+    rawData.value.splice(index, 1);
+  } catch (err) {
+    alert("Failed to delete entry: " + err.message);
+  } finally {
+    deleting.value[index] = false;
+  }
 };
 
 await fetchRawData();

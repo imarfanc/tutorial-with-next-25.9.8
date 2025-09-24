@@ -17,6 +17,7 @@
             <li><NuxtLink to="/notes">📓 Notes App</NuxtLink></li>
             <li><NuxtLink to="/env">🔧 Env Reader</NuxtLink></li>
             <li><NuxtLink to="/kv-data">🗄️ Database Explorer</NuxtLink></li>
+            <li><NuxtLink to="/components-test">🧪 Components</NuxtLink></li>
           </ul>
         </div>
         <NuxtLink to="/" class="btn btn-ghost text-xl">🚀 Nuxt DaisyUI</NuxtLink>
@@ -29,6 +30,7 @@
           <li><NuxtLink to="/notes" class="btn btn-ghost">📓 Notes</NuxtLink></li>
           <li><NuxtLink to="/env" class="btn btn-ghost">🔧 Env</NuxtLink></li>
           <li><NuxtLink to="/kv-data" class="btn btn-ghost">🗄️ Database</NuxtLink></li>
+          <li><NuxtLink to="/components-test" class="btn btn-ghost">🧪 Components</NuxtLink></li>
         </ul>
       </div>
 
@@ -63,6 +65,7 @@
         <NuxtLink to="/notes" class="link link-hover">Notes App</NuxtLink>
         <NuxtLink to="/env" class="link link-hover">Environment</NuxtLink>
         <NuxtLink to="/kv-data" class="link link-hover">Database</NuxtLink>
+        <NuxtLink to="/components-test" class="link link-hover">Components</NuxtLink>
       </nav>
       <aside>
         <p>Built with ❤️ using Nuxt.js and DaisyUI v5</p>
@@ -77,6 +80,12 @@ onMounted(() => {
   if (process.client) {
     const savedTheme = localStorage.getItem('theme') || 'light'
     document.documentElement.setAttribute('data-theme', savedTheme)
+
+    // Hello message and version
+    console.log('🚀 Welcome to Nuxt DaisyUI Tutorial App!')
+    console.log('📦 Version: 1.0.0')
+    console.log('🎨 Built with Nuxt.js, DaisyUI v5, and Deno KV')
+    console.log('🌐 Repository: https://github.com/arfanxn/tutorial-with-next-25.9.8')
   }
 })
 </script>

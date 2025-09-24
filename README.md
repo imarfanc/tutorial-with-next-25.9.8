@@ -6,12 +6,40 @@ The project is deployed on Deno Deploy, and the production URL is: https://tutor
 
 ## Project Structure
 
-- `nuxt.config.ts`: Nuxt configuration with Tailwind CSS Vite plugin and Nitro preset for Deno runtime.
-- `app/assets/app.css`: Tailwind CSS and daisyUI imports.
-- `app/app.vue`: The main app component integrating the TodoApp.
-- `app/components/TodoApp.vue`: The Vue component handling the todo list UI with daisyUI styling.
-- `server/api/todos.*.ts`: Server API routes for CRUD operations using Deno KV.
-- Standard Nuxt files for setup.
+```
+.
+├── app/
+│   ├── app.vue                    # Main app component
+│   ├── assets/
+│   │   └── app.css               # Tailwind CSS and daisyUI imports
+│   ├── components/
+│   │   ├── EnvApp.vue            # Environment variables reader
+│   │   ├── NotesApp.vue          # Notes management component
+│   │   └── TodoApp.vue           # Todo list component
+│   └── pages/
+│       ├── components-test.vue    # DaisyUI components showcase
+│       ├── env.vue               # Environment variables page
+│       ├── index.vue             # Homepage
+│       ├── kv-data.vue           # Database explorer
+│       ├── notes.vue             # Notes application
+│       └── todo.vue              # Todo application
+├── server/
+│   └── api/
+│       ├── env.get.ts            # Environment variables API
+│       ├── kv-data.get.ts        # Database browser API
+│       ├── kv-data.delete.ts     # Database entry deletion
+│       ├── notes/
+│       │   ├── [id].delete.ts    # Delete note by ID
+│       │   └── [id].put.ts       # Update note by ID
+│       └── todos/
+│           ├── [id].delete.ts    # Delete todo by ID
+│           └── [id].put.ts       # Update todo by ID
+├── docs/
+│   └── deno-kv-apis.md          # API documentation
+├── nuxt.config.ts               # Nuxt configuration with Tailwind CSS
+├── package.json                 # Dependencies and scripts
+└── tsconfig.json               # TypeScript configuration
+```
 
 ## Installation and Setup
 
@@ -151,21 +179,6 @@ yarn build
 bun run build
 ```
 
-Locally preview the production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
 
 ## Deployment
 

@@ -8,7 +8,7 @@
         </p>
 
         <!-- Quick Access Buttons -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <NuxtLink to="/todo" class="btn btn-primary btn-lg hover:scale-105 transition-transform">
             📝 Todo
           </NuxtLink>
@@ -21,6 +21,9 @@
           <NuxtLink to="/kv-data" class="btn btn-secondary btn-lg hover:scale-105 transition-transform">
             🗄️ Database
           </NuxtLink>
+          <NuxtLink to="/components-test" class="btn btn-warning btn-lg hover:scale-105 transition-transform">
+            🧪 Components
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -31,7 +34,7 @@
     <div class="container mx-auto px-4">
       <h2 class="text-4xl font-bold text-center mb-12 text-base-content">Featured Applications</h2>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
         <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
           <div class="card-body items-center text-center">
             <div class="text-4xl mb-4">📝</div>
@@ -72,6 +75,17 @@
             <p class="text-base-content/70">Browse and inspect Deno KV database entries</p>
             <div class="card-actions justify-end">
               <NuxtLink to="/kv-data" class="btn btn-secondary btn-sm">Browse</NuxtLink>
+            </div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
+          <div class="card-body items-center text-center">
+            <div class="text-4xl mb-4">🧪</div>
+            <h3 class="card-title text-warning">Component Tester</h3>
+            <p class="text-base-content/70">Test and showcase DaisyUI v5 components</p>
+            <div class="card-actions justify-end">
+              <NuxtLink to="/components-test" class="btn btn-warning btn-sm">Test</NuxtLink>
             </div>
           </div>
         </div>
