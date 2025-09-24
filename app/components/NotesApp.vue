@@ -1,25 +1,29 @@
 <template>
   <div id="notes-app-container" class="mx-auto p-6 max-w-6xl container">
     <div id="notes-header" class="flex justify-between items-center mb-8">
-      <h1 id="notes-app-title" class="font-bold text-primary text-4xl">
-        Notes App
-      </h1>
+      <h1 id="notes-app-title" class="font-bold text-primary text-4xl">Notes App</h1>
       <div id="view-mode-toggle" class="flex gap-2">
         <button
           @click="viewMode = 'view'"
-          :class="['btn', 'btn-sm', viewMode === 'view' ? 'btn-primary' : 'btn-outline']">
+          :class="['btn', 'btn-sm', viewMode === 'view' ? 'btn-primary' : 'btn-outline']"
+        >
           👁️ View
         </button>
         <button
           @click="viewMode = 'edit'"
-          :class="['btn', 'btn-sm', viewMode === 'edit' ? 'btn-secondary' : 'btn-outline']">
+          :class="['btn', 'btn-sm', viewMode === 'edit' ? 'btn-secondary' : 'btn-outline']"
+        >
           ✏️ Edit
         </button>
       </div>
     </div>
 
     <!-- Add Note Form -->
-    <div v-if="viewMode === 'edit'" id="add-note-form" class="bg-base-100 border border-base-300 shadow-lg mb-8 rounded-xl card">
+    <div
+      v-if="viewMode === 'edit'"
+      id="add-note-form"
+      class="bg-base-100 border border-base-300 shadow-lg mb-8 rounded-xl card"
+    >
       <div class="p-6 card-body">
         <h2 class="card-title text-accent mb-4">Add New Note</h2>
         <form @submit.prevent="addNote" class="form-control space-y-4">
@@ -29,13 +33,15 @@
             type="text"
             placeholder="Note title..."
             class="input input-bordered input-primary"
-            required />
+            required
+          />
           <textarea
             id="new-note-content"
             v-model="newNoteContent"
             placeholder="Write your note here..."
             class="textarea textarea-bordered textarea-primary h-32"
-            required></textarea>
+            required
+          ></textarea>
           <button id="add-note-button" type="submit" class="btn btn-primary">
             <span>➕ Add Note</span>
           </button>
@@ -49,8 +55,8 @@
         v-for="note in notes"
         :key="note.id"
         :id="`note-item-${note.id}`"
-        class="bg-base-100 border border-base-300 hover:border-primary hover:shadow-xl rounded-xl transition-all duration-300 card h-fit">
-
+        class="bg-base-100 border border-base-300 hover:border-primary hover:shadow-xl rounded-xl transition-all duration-300 card h-fit"
+      >
         <!-- Edit Mode -->
         <div v-if="viewMode === 'edit' && editingId === note.id" class="p-6 card-body">
           <div class="space-y-4">
@@ -59,18 +65,16 @@
               type="text"
               class="input input-bordered input-secondary w-full"
               placeholder="Note title..."
-              autofocus />
+              autofocus
+            />
             <textarea
               v-model="editingContent"
               class="textarea textarea-bordered textarea-secondary w-full h-40"
-              placeholder="Note content..."></textarea>
+              placeholder="Note content..."
+            ></textarea>
             <div class="flex gap-2 justify-end">
-              <button @click="updateNote(note.id)" class="btn btn-success btn-sm">
-                💾 Save
-              </button>
-              <button @click="cancelEdit()" class="btn btn-ghost btn-sm">
-                ❌ Cancel
-              </button>
+              <button @click="updateNote(note.id)" class="btn btn-success btn-sm">💾 Save</button>
+              <button @click="cancelEdit()" class="btn btn-ghost btn-sm">❌ Cancel</button>
             </div>
           </div>
         </div>
@@ -83,15 +87,11 @@
               <button
                 @click="toggleEdit(note.id, note.title, note.content)"
                 class="btn btn-outline btn-xs"
-                title="Edit note">
+                title="Edit note"
+              >
                 ✏️
               </button>
-              <button
-                @click="deleteNote(note.id)"
-                class="btn btn-error btn-xs"
-                title="Delete note">
-                🗑️
-              </button>
+              <button @click="deleteNote(note.id)" class="btn btn-error btn-xs" title="Delete note">🗑️</button>
             </div>
           </div>
 
@@ -118,7 +118,7 @@
         <div class="text-4xl mb-4">📝</div>
         <p class="text-base-content/60 text-lg">No notes yet</p>
         <p class="text-base-content/40 text-sm mt-2">
-          {{ viewMode === 'edit' ? 'Add one above to get started!' : 'Switch to edit mode to add notes' }}
+          {{ viewMode === "edit" ? "Add one above to get started!" : "Switch to edit mode to add notes" }}
         </p>
       </div>
     </div>
@@ -147,7 +147,7 @@ const addNote = async () => {
     method: "POST",
     body: {
       title: newNoteTitle.value,
-      content: newNoteContent.value
+      content: newNoteContent.value,
     },
   });
   newNoteTitle.value = "";
@@ -180,7 +180,7 @@ const updateNote = async (id) => {
     method: "PUT",
     body: {
       title: editingTitle.value,
-      content: editingContent.value
+      content: editingContent.value,
     },
   });
   editingId.value = null;

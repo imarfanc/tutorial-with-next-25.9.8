@@ -1,8 +1,6 @@
 <template>
   <div id="todo-app-container" class="mx-auto p-6 max-w-4xl container">
-    <h1 id="todo-app-title" class="mb-8 font-bold text-primary text-4xl text-center">
-      Todo App with DaisyUI
-    </h1>
+    <h1 id="todo-app-title" class="mb-8 font-bold text-primary text-4xl text-center">Todo App with DaisyUI</h1>
 
     <!-- Add Todo Form -->
     <div id="add-todo-form" class="bg-base-100 border border-base-300 shadow-lg mb-8 rounded-xl card">
@@ -16,7 +14,8 @@
               type="text"
               placeholder="Enter new todo..."
               class="input input-bordered input-primary w-full input-lg"
-              required />
+              required
+            />
             <button id="add-todo-button" type="submit" class="btn btn-primary btn-lg">
               <span>➕ Add</span>
             </button>
@@ -31,7 +30,8 @@
         v-for="todo in todos"
         :key="todo.id"
         :id="`todo-item-${todo.id}`"
-        class="bg-base-100 border border-base-300 hover:border-secondary hover:shadow-xl rounded-xl transition-all duration-300 card">
+        class="bg-base-100 border border-base-300 hover:border-secondary hover:shadow-xl rounded-xl transition-all duration-300 card"
+      >
         <div class="p-4 card-body">
           <div class="flex justify-between items-center">
             <div class="flex-1">
@@ -42,15 +42,12 @@
                 @blur="updateTodo(todo.id)"
                 type="text"
                 class="input input-bordered input-secondary w-full"
-                autofocus />
-              <span v-else class="font-medium text-xl break-words text-secondary">{{
-                todo.text
-              }}</span>
+                autofocus
+              />
+              <span v-else class="font-medium text-xl break-words text-secondary">{{ todo.text }}</span>
             </div>
             <div class="flex-shrink-0 space-x-2">
-              <button
-                @click="toggleEdit(todo.id, todo.text)"
-                class="btn btn-outline btn-sm btn-info">
+              <button @click="toggleEdit(todo.id, todo.text)" class="btn btn-outline btn-sm btn-info">
                 {{ editingId === todo.id ? "❌ Cancel" : "✏️ Edit" }}
               </button>
               <button @click="deleteTodo(todo.id)" class="btn btn-sm btn-error">

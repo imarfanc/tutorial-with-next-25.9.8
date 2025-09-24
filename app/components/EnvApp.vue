@@ -1,8 +1,6 @@
 <template>
   <div id="env-app-container" class="mx-auto p-6 max-w-4xl container">
-    <h1 id="env-app-title" class="mb-8 font-bold text-primary text-4xl text-center">
-      Environment Variable Reader
-    </h1>
+    <h1 id="env-app-title" class="mb-8 font-bold text-primary text-4xl text-center">Environment Variable Reader</h1>
 
     <div id="env-info-card" class="bg-base-100 border border-base-300 shadow-lg rounded-xl card mb-8">
       <div class="p-8 card-body">
@@ -18,20 +16,20 @@
         </div>
 
         <div v-else id="env-result" class="space-y-6">
-          <div class="flex items-center justify-between p-4 rounded-lg"
-               :class="envData.isSet ? 'bg-success/10 border border-success/20' : 'bg-warning/10 border border-warning/20'">
+          <div
+            class="flex items-center justify-between p-4 rounded-lg"
+            :class="envData.isSet ? 'bg-success/10 border border-success/20' : 'bg-warning/10 border border-warning/20'"
+          >
             <div class="flex items-center gap-3">
-              <div class="text-2xl">{{ envData.isSet ? '✅' : '⚠️' }}</div>
+              <div class="text-2xl">{{ envData.isSet ? "✅" : "⚠️" }}</div>
               <div>
                 <div class="font-semibold text-lg">
-                  {{ envData.isSet ? 'Variable is SET' : 'Variable is NOT SET' }}
+                  {{ envData.isSet ? "Variable is SET" : "Variable is NOT SET" }}
                 </div>
                 <div class="text-sm opacity-70">TEST_ENV_VAR</div>
               </div>
             </div>
-            <button @click="refreshEnv" class="btn btn-outline btn-sm">
-              🔄 Refresh
-            </button>
+            <button @click="refreshEnv" class="btn btn-outline btn-sm">🔄 Refresh</button>
           </div>
 
           <div v-if="envData.isSet" class="bg-base-200 border border-base-300 p-6 rounded-lg">
@@ -49,9 +47,7 @@
                 <div class="text-accent">export TEST_ENV_VAR="your_value_here"</div>
                 <div class="text-secondary">npm run dev</div>
               </div>
-              <p class="text-base-content/60 text-xs mt-2">
-                Or add it to your .env file in the project root
-              </p>
+              <p class="text-base-content/60 text-xs mt-2">Or add it to your .env file in the project root</p>
             </div>
           </div>
 
@@ -71,8 +67,8 @@
         <h3 class="card-title text-accent mb-4">About Environment Variables</h3>
         <div class="prose prose-sm max-w-none">
           <p class="text-base-content/80">
-            Environment variables are key-value pairs that provide configuration data to applications.
-            They're commonly used for:
+            Environment variables are key-value pairs that provide configuration data to applications. They're commonly
+            used for:
           </p>
           <ul class="text-base-content/70 space-y-1 ml-4">
             <li>• API keys and secrets</li>
