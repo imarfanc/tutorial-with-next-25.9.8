@@ -1,20 +1,33 @@
 <template>
-  <div id="notes-app-container" class="mx-auto p-6 max-w-6xl container">
-    <div id="notes-header" class="flex justify-between items-center mb-8">
-      <h1 id="notes-app-title" class="font-bold text-primary text-4xl">Notes App</h1>
-      <div id="view-mode-toggle" class="flex gap-2">
-        <button
-          @click="viewMode = 'view'"
-          :class="['btn', 'btn-sm', viewMode === 'view' ? 'btn-primary' : 'btn-outline']"
-        >
-          👁️ View
-        </button>
-        <button
-          @click="viewMode = 'edit'"
-          :class="['btn', 'btn-sm', viewMode === 'edit' ? 'btn-secondary' : 'btn-outline']"
-        >
-          ✏️ Edit
-        </button>
+  <div>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+      <div>
+        <h1 class="text-4xl font-bold text-primary">Notes Manager</h1>
+        <p class="text-base-content/70 mt-2">Organize your thoughts and ideas</p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+        <div class="stats shadow">
+          <div class="stat">
+            <div class="stat-title">Total Notes</div>
+            <div class="stat-value text-primary">{{ notes.length }}</div>
+          </div>
+        </div>
+
+        <div class="join">
+          <button
+            @click="viewMode = 'view'"
+            :class="['join-item', 'btn', 'btn-sm', viewMode === 'view' ? 'btn-primary' : 'btn-outline']"
+          >
+            👁️ View
+          </button>
+          <button
+            @click="viewMode = 'edit'"
+            :class="['join-item', 'btn', 'btn-sm', viewMode === 'edit' ? 'btn-primary' : 'btn-outline']"
+          >
+            ✏️ Edit
+          </button>
+        </div>
       </div>
     </div>
 
@@ -113,13 +126,25 @@
       </div>
     </div>
 
-    <div v-if="notes.length === 0" id="empty-notes-message" class="text-center mt-12">
-      <div class="bg-base-100 border border-base-300 rounded-xl p-8 max-w-md mx-auto">
-        <div class="text-4xl mb-4">📝</div>
-        <p class="text-base-content/60 text-lg">No notes yet</p>
-        <p class="text-base-content/40 text-sm mt-2">
-          {{ viewMode === "edit" ? "Add one above to get started!" : "Switch to edit mode to add notes" }}
-        </p>
+    <!-- Empty State -->
+    <div v-if="notes.length === 0" class="hero min-h-96">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <div class="text-6xl mb-4">📝</div>
+          <h3 class="text-2xl font-bold mb-4">No notes yet!</h3>
+          <p class="text-base-content/70 mb-6">
+            {{ viewMode === "edit"
+              ? "Start by creating your first note above."
+              : "Switch to edit mode to start writing."
+            }}
+          </p>
+          <div v-if="viewMode !== 'edit'" class="alert alert-info">
+            <svg class="stroke-current shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>Click "✏️ Edit" above to start adding notes</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

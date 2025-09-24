@@ -1,65 +1,116 @@
 <template>
-  <div id="kv-data-container" class="mx-auto p-6 max-w-4xl">
-    <h1 id="kv-data-title" class="mb-8 font-bold text-primary text-4xl text-center">Deno KV Database Explorer</h1>
+  <div>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+      <div>
+        <h1 class="text-4xl font-bold text-primary">Database Explorer</h1>
+        <p class="text-base-content/70 mt-2">Browse and inspect Deno KV database entries</p>
+      </div>
 
-    <div v-if="loading" id="loading-section" class="text-center">
-      <span class="loading loading-spinner loading-lg"></span>
-      <p class="mt-2">Loading raw KV data...</p>
-    </div>
-
-    <div v-else-if="error" id="error-section" class="alert alert-error">
-      <span>{{ error }}</span>
-    </div>
-
-    <div v-else-if="rawData.length === 0" id="empty-state" class="text-center mt-12">
-      <div class="bg-base-100 border border-base-300 rounded-xl p-8 max-w-md mx-auto">
-        <div class="text-4xl mb-4">🗄️</div>
-        <p class="text-base-content/60 text-lg">No data in KV database yet</p>
-        <p class="text-base-content/40 text-sm mt-2">Create some todos or notes to see data appear here</p>
+      <div v-if="!loading && !error" class="stats shadow">
+        <div class="stat">
+          <div class="stat-title">Total Entries</div>
+          <div class="stat-value text-primary">{{ rawData.length }}</div>
+          <div class="stat-desc">{{ getStats() }}</div>
+        </div>
       </div>
     </div>
 
-    <div v-else id="kv-data-list" class="space-y-6">
+    <!-- Loading State -->
+    <div v-if="loading" class="hero min-h-96">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <span class="loading loading-spinner loading-lg text-primary mb-4"></span>
+          <h3 class="text-xl font-bold">Loading Database</h3>
+          <p class="text-base-content/70">Fetching KV store entries...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div v-else-if="error" class="alert alert-error shadow-lg">
+      <svg class="stroke-current shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <span>{{ error }}</span>
+    </div>
+
+    <!-- Empty State -->
+    <div v-else-if="rawData.length === 0" class="hero min-h-96">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <div class="text-6xl mb-4">🗄️</div>
+          <h3 class="text-2xl font-bold mb-4">Database is Empty</h3>
+          <p class="text-base-content/70 mb-6">No entries found in the KV database yet.</p>
+          <div class="alert alert-info">
+            <svg class="stroke-current shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>Create some todos or notes to see data appear here!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Database Entries -->
+    <div v-else class="grid gap-6 lg:grid-cols-2">
       <div
         v-for="(entry, index) in rawData"
         :key="index"
-        :id="`kv-entry-${index}`"
-        class="bg-base-100 border border-base-300 hover:border-accent shadow-lg hover:shadow-xl rounded-xl transition-all duration-300 card"
+        class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow border border-base-300"
       >
-        <div class="p-6 card-body">
+        <div class="card-body">
           <div class="flex justify-between items-start mb-4">
-            <h2 class="font-semibold text-xl text-primary">{{ getEntryType(entry.key) }}</h2>
-            <div class="badge badge-outline badge-sm">{{ entry.key.join(" → ") }}</div>
+            <h2 class="card-title text-primary">{{ getEntryType(entry.key) }}</h2>
+            <div class="badge badge-outline">{{ entry.key.join(" → ") }}</div>
           </div>
 
-          <div class="tabs tabs-bordered mb-4">
+          <div role="tablist" class="tabs tabs-boxed mb-4">
             <input
               type="radio"
               :name="`tab-${index}`"
               role="tab"
-              class="tab text-secondary"
+              class="tab"
               aria-label="Value"
-              checked
+              :checked="selectedTab !== `meta-${index}`"
+              @change="selectedTab = `value-${index}`"
             />
-            <div role="tabpanel" class="tab-content">
-              <div class="bg-base-200 border border-base-300 p-4 rounded-lg overflow-auto">
-                <pre class="text-sm">{{ JSON.stringify(entry.value, null, 2) }}</pre>
+            <div role="tabpanel" class="tab-content bg-base-200 border border-base-300 rounded-box p-4 mt-4">
+              <div class="mockup-code">
+                <pre><code>{{ JSON.stringify(entry.value, null, 2) }}</code></pre>
               </div>
             </div>
 
-            <input type="radio" :name="`tab-${index}`" role="tab" class="tab text-info" aria-label="Metadata" />
-            <div role="tabpanel" class="tab-content">
-              <div class="bg-base-200 border border-base-300 p-4 rounded-lg">
-                <div class="text-sm space-y-2">
-                  <div><span class="font-semibold text-accent">Key:</span> {{ JSON.stringify(entry.key) }}</div>
-                  <div><span class="font-semibold text-accent">Versionstamp:</span> {{ entry.versionstamp }}</div>
-                  <div v-if="entry.value?.createdAt">
-                    <span class="font-semibold text-accent">Created:</span> {{ formatDate(entry.value.createdAt) }}
-                  </div>
-                  <div v-if="entry.value?.updatedAt && entry.value.updatedAt !== entry.value.createdAt">
-                    <span class="font-semibold text-accent">Updated:</span> {{ formatDate(entry.value.updatedAt) }}
-                  </div>
-                </div>
+            <input
+              type="radio"
+              :name="`tab-${index}`"
+              role="tab"
+              class="tab"
+              aria-label="Metadata"
+              :checked="selectedTab === `meta-${index}`"
+              @change="selectedTab = `meta-${index}`"
+            />
+            <div role="tabpanel" class="tab-content bg-base-200 border border-base-300 rounded-box p-4 mt-4">
+              <div class="overflow-x-auto">
+                <table class="table table-sm">
+                  <tbody>
+                    <tr>
+                      <th>Key</th>
+                      <td><code class="text-xs">{{ JSON.stringify(entry.key) }}</code></td>
+                    </tr>
+                    <tr>
+                      <th>Versionstamp</th>
+                      <td><code class="text-xs">{{ entry.versionstamp }}</code></td>
+                    </tr>
+                    <tr v-if="entry.value?.createdAt">
+                      <th>Created</th>
+                      <td>{{ formatDate(entry.value.createdAt) }}</td>
+                    </tr>
+                    <tr v-if="entry.value?.updatedAt && entry.value.updatedAt !== entry.value.createdAt">
+                      <th>Updated</th>
+                      <td>{{ formatDate(entry.value.updatedAt) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -73,6 +124,7 @@
 const rawData = ref([]);
 const loading = ref(true);
 const error = ref(null);
+const selectedTab = ref(null);
 
 const fetchRawData = async () => {
   try {
@@ -89,6 +141,20 @@ const getEntryType = (key) => {
   if (key[0] === "todos") return "📝 Todo";
   if (key[0] === "notes") return "📓 Note";
   return `🔑 ${key[0] || "Unknown"}`;
+};
+
+const getStats = () => {
+  if (rawData.value.length === 0) return "";
+  const todoCount = rawData.value.filter(entry => entry.key[0] === "todos").length;
+  const noteCount = rawData.value.filter(entry => entry.key[0] === "notes").length;
+  const otherCount = rawData.value.length - todoCount - noteCount;
+
+  const parts = [];
+  if (todoCount > 0) parts.push(`${todoCount} todos`);
+  if (noteCount > 0) parts.push(`${noteCount} notes`);
+  if (otherCount > 0) parts.push(`${otherCount} other`);
+
+  return parts.join(", ");
 };
 
 const formatDate = (dateString) => {

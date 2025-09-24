@@ -30,6 +30,66 @@ The project follows a standard Nuxt.js structure with:
 - Maintain consistent naming conventions (camelCase for variables, PascalCase for components)
 - Use async/await for asynchronous operations
 
+## Styling with DaisyUI v5
+
+This project uses **DaisyUI v5** with Tailwind CSS for styling. Here are the key guidelines:
+
+### Core Design System
+- **Theme**: Uses DaisyUI's semantic color system (primary, secondary, accent, neutral, base-100, etc.)
+- **Components**: Leverages DaisyUI's pre-built components for consistency
+- **Responsive**: Mobile-first design with responsive breakpoints
+- **Theme switching**: Built-in dark/light theme support via data-theme attribute
+
+### Component Patterns
+- **Cards**: Use `card bg-base-100 shadow-xl` for main content containers
+- **Buttons**: Semantic button classes like `btn-primary`, `btn-secondary`, `btn-outline`
+- **Navigation**: `navbar`, `menu`, and `dropdown` components for navigation
+- **Forms**: `input-bordered`, `textarea-bordered`, and `form-control` for forms
+- **Loading**: `loading loading-spinner` for loading states
+- **Alerts**: `alert alert-info/warning/error/success` for notifications
+
+### Layout Structure
+- **Hero sections**: `hero min-h-96` for prominent content areas
+- **Stats**: `stats shadow` for displaying metrics and key numbers
+- **Grid layouts**: Responsive grids using `grid md:grid-cols-2 lg:grid-cols-3`
+- **Spacing**: Consistent spacing using Tailwind's spacing scale
+- **Container**: Main content wrapped in responsive containers
+
+### Interactive Elements
+- **Hover effects**: `hover:shadow-xl`, `hover:scale-105` for interactivity
+- **Transitions**: `transition-all duration-300` for smooth animations
+- **Focus states**: Built-in focus styles for accessibility
+- **Dropdown menus**: `dropdown dropdown-end` for action menus
+
+### Color Usage
+- **Primary**: Main brand color for CTAs and important elements
+- **Secondary**: Supporting actions and secondary information
+- **Accent**: Highlights and special emphasis
+- **Base colors**: Background and content colors that adapt to themes
+- **Semantic colors**: Success, warning, error, and info for status indication
+
+### Available Themes
+The application supports multiple DaisyUI themes including:
+- `light` (default)
+- `dark`
+- `cupcake`
+- `synthwave`
+- And 30+ other built-in themes
+
+### Current Implementation Examples
+- **Homepage**: Hero section with gradient backgrounds, feature cards with hover effects
+- **Todo App**: Stats component, dropdown menus, alert components for empty states
+- **Notes App**: Toggle buttons using join component, card layouts with proper spacing
+- **Environment Reader**: Mockup code components, indicator badges, avatar placeholders
+- **Database Explorer**: Tabs component, table layouts, loading spinners
+
+### Styling Best Practices for This Project
+1. **Consistency**: Always use DaisyUI semantic classes over custom CSS
+2. **Responsiveness**: Use responsive prefixes (sm:, md:, lg:) for layouts
+3. **Accessibility**: DaisyUI components include built-in ARIA attributes
+4. **Performance**: Minimal custom CSS, leverage utility classes
+5. **Maintainability**: Theme-aware colors that work in light and dark modes
+
 ## Testing instructions
 
 - Currently no formal test suite is set up
@@ -48,18 +108,38 @@ The project follows a standard Nuxt.js structure with:
 
 ## File structure guidelines
 
-- Pages go in `app/pages/` with the .vue extension
-- Reusable components go in `app/components/`
-- API routes follow the pattern `server/api/[resource].[method].ts`
-- For nested routes with ID parameters, use `server/api/[resource]/[id].[method].ts`
-- Static assets go in `public/`
+- **Pages**: `app/pages/` with .vue extension (auto-routed by Nuxt)
+- **Components**: `app/components/` for reusable Vue components
+- **API routes**: `server/api/[resource].[method].ts` pattern
+- **Nested routes**: `server/api/[resource]/[id].[method].ts` for ID-based operations
+- **Static assets**: `public/` directory for images, icons, etc.
+
+### Styling Configuration Files
+- **`assets/app.css`**: Main CSS entry point that imports Tailwind and DaisyUI
+- **`tailwind.config.js`**: Tailwind and DaisyUI configuration
+- **`nuxt.config.ts`**: Nuxt configuration including CSS imports
+- **`app/app.vue`**: Root layout component with theme switching functionality
+
+### Component Architecture
+- **Layout**: `app/app.vue` provides the main navigation and footer
+- **Page templates**: Keep pages minimal, delegate to components
+- **Reusable components**: Use DaisyUI patterns for consistency
+- **State management**: Use Vue's built-in reactivity with `ref()` and `reactive()`
 
 ## Dependencies and tools
 
-- Nuxt.js for the Vue framework
-- TypeScript for type safety
-- Deno KV for data persistence
-- No additional UI library is used - styling is custom CSS
+- **Nuxt.js 4.x**: Vue framework with full-stack capabilities
+- **TypeScript**: Type safety throughout the application
+- **Tailwind CSS 4.x**: Utility-first CSS framework
+- **DaisyUI v5**: Component library built on Tailwind CSS
+- **Deno KV**: Serverless database for data persistence
+- **Vue 3**: Reactive frontend framework with Composition API
+
+### Styling Stack
+- **Tailwind CSS**: Base utility framework for styling
+- **DaisyUI v5**: Pre-built components and themes
+- **Custom CSS**: Minimal custom styles, prefer DaisyUI components
+- **Theme System**: Built-in theme switching with multiple available themes
 
 ## Security considerations
 
