@@ -16,7 +16,8 @@
       "mcp__chrome-devtools__navigate_page",
       "Bash(npm run typecheck:*)",
       "Bash(npm run lint)",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "mcp__chrome-devtools__click"
     ],
     "deny": [],
     "ask": []

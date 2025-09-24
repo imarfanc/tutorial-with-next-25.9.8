@@ -75,17 +75,20 @@
 </template>
 
 <script setup>
+import { appConfig } from '../config/app.config'
+
 // Set default theme on mount
 onMounted(() => {
   if (process.client) {
     const savedTheme = localStorage.getItem('theme') || 'light'
     document.documentElement.setAttribute('data-theme', savedTheme)
 
-    // Hello message and version
-    console.log('🚀 Welcome to Nuxt DaisyUI Tutorial App!')
-    console.log('📦 Version: 1.0.0')
-    console.log('🎨 Built with Nuxt.js, DaisyUI v5, and Deno KV')
-    console.log('🌐 Repository: https://github.com/arfanxn/tutorial-with-next-25.9.8')
+    // Hello message and version from config
+    console.log(`🚀 Welcome to ${appConfig.name}!`)
+    console.log(`📦 Version: ${appConfig.version}`)
+    console.log(`🎨 Built with ${appConfig.tech.framework}, ${appConfig.tech.ui}, and ${appConfig.tech.database}`)
+    console.log(`🌐 Repository: ${appConfig.repository}`)
+    console.log(`🚀 Deployed on: ${appConfig.deployment.platform}`)
   }
 })
 </script>
